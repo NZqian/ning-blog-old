@@ -6,6 +6,10 @@
       </div>
 
       <v-spacer></v-spacer>
+      <v-col class="text-center">
+        <v-card-text>Our Blog</v-card-text>
+      </v-col>
+      <v-spacer></v-spacer>
 
       <v-switch
         v-model="$vuetify.theme.dark"
@@ -92,20 +96,34 @@ export default Vue.extend({
     this.logged = this.$cookies.get("logged");
     console.log(this.logged);
   },
+  mounted: function () {
+    console.log("mounted");
+    this.logged = this.$cookies.get("logged");
+    console.log("got cookie");
+    console.log(this.logged);
+  },
+  beforeMount: function () {
+    console.log("before mount");
+    console.log(this.$cookies.isKey("logged"));
+    this.logged = this.$cookies.get("logged");
+    console.log("got cookie");
+  },
   methods: {
     login: function () {
       //console.log(this.logged)
+      console.log(this.$cookies.get("logged"));
       this.logged = true;
       this.$cookies.set("logged", true);
       console.log(this.username);
       console.log(this.password);
+      console.log(this.$cookies.get("logged"));
     },
     logout: function () {
       //console.log(this.logged)
       this.logged = false;
       this.$cookies.set("logged", false);
-      this.username = ""
-      this.password = ""
+      this.username = "";
+      this.password = "";
     },
   },
 });

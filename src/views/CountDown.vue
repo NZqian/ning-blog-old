@@ -1,19 +1,19 @@
 <template>
   <div>
-    <v-container class="fill-height">
-      <v-row align="center">
-        <v-col class="text-center">
-          <strong class="text-h1">
-            {{ countdown }}
-          </strong>
-        </v-col>
-      </v-row>
-    </v-container>
+    <pic-with-date />
+    <v-row justify="start" align="center">
+      <v-col class="text-center">
+        <strong class="text-h1">
+          {{ countdown }}
+        </strong>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import PicWithDate from "../components/PicWithDate.vue";
 export default Vue.extend({
   data: () => ({
     countdown: "...",
@@ -30,5 +30,15 @@ export default Vue.extend({
       this.countdown = leftd + ":" + lefth + ":" + leftm + ":" + lefts;
     }, 1000);
   },
+  components: {
+    PicWithDate,
+  },
 });
 </script>
+
+<style>
+#whole-page {
+  background: #fff;
+  height: 100%;
+}
+</style>
