@@ -3,7 +3,7 @@
     <pic-with-date />
     <v-row justify="start" align="center">
       <v-col class="text-center">
-        <strong class="text-h1">
+        <strong class="text-h2">
           {{ countdown }}
         </strong>
       </v-col>

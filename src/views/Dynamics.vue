@@ -1,10 +1,11 @@
 <template>
   <div>
     <v-card flat>
-      <v-btn absolute bottom color="pink" right fab>
+      <v-btn absolute bottom color="pink" right fab @click.stop="JumpToPublish">
         <v-icon>mdi-plus</v-icon>
+        <router-link to="/publish"></router-link>
       </v-btn>
-     <pic-with-date/> 
+      <pic-with-date />
     </v-card>
     <v-card-text class="py-0">
       <v-timeline align-top dense>
@@ -29,9 +30,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
-import PicWithDate from "../components/PicWithDate.vue"
+import PicWithDate from "../components/PicWithDate.vue";
+
 export default Vue.extend({
   name: "Dynamics",
   data() {
@@ -55,7 +57,13 @@ export default Vue.extend({
     };
   },
   components: {
-      PicWithDate,
-  }
+    PicWithDate,
+  },
+  methods: {
+    JumpToPublish: function () {
+      console.log("");
+      this.$router.push("/publish");
+    },
+  },
 });
 </script>

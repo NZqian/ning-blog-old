@@ -62,7 +62,6 @@
             <div>
               <v-text-field
                 label="用户名"
-                :rules="rules"
                 hide-details="auto"
                 v-model="username"
               ></v-text-field>

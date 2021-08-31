@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '/countdown',
         name: 'CountDown',
-        component: CountDown
+        component: () => import('../views/CountDown.vue')
     },
     {
         path: '/about',
@@ -30,7 +30,12 @@ const routes: Array<RouteConfig> = [
     {
         path: '/dynamics',
         name: 'Dynamics',
-        component: Dynamics
+        component: () => import('../views/Dynamics.vue')
+    },
+    {
+        path: '/publish',
+        name: 'Publish',
+        component: () => import('../views/PublishDynamic.vue')
     }
 ]
 
