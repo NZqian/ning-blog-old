@@ -41,7 +41,15 @@ export default Vue.extend({
         submit: function() {
             console.log(this.title)
             console.log(this.content)
+            /*
             axios.get("http://127.0.0.1:8888/api/test").then(response=>{
+                console.log(response)
+                this.response = JSON.stringify(response)
+            })
+            */
+            let date = new Date()
+            let time = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+            axios.post("http://192.168.1.199:8888/api/publish-dynamic", {"time": time,"title": this.title, "content": this.content}).then(response=>{
                 console.log(response)
                 this.response = JSON.stringify(response)
             })

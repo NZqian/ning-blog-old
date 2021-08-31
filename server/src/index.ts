@@ -1,15 +1,41 @@
 import { Router } from 'express'
 import * as bodyParser from 'body-parser'
-import { MongoClient } from 'mongodb'
-const mongoclient = MongoClient
+import { Db, MongoClient } from 'mongodb'
 
-mongoclient.connect("127.0.0.1:27017", function (err, client) {
-    client?.db("").admin()
+const client = new MongoClient("mongodb://127.0.0.1:27017")
+const connection = client.connect()
+
+/*
+console.log("before connecting")
+MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
+    if (err) {
+        throw err
+    }
+    console.log("connected")
+    client?.db("ning-blog").collection("dynamics").insertOne({ "time": , "c": 5 }, function (err, res) {
+        if (err) {
+            throw err
+        }
+        console.log("insert success")
+        client.close()
+    })
 })
+*/
+
+function insertDynamic(time: string, title: string, content: string) {
+    connection.then(() => {
+        client.db("ning-blog").collection("dynamics").insertOne({ "time": time, "title": title, "content": content }, function (err, res) {
+            if (err) throw err
+            console.log("insert success")
+        })
+    })
+}
 
 const router = Router()
 router.post('/publish-dynamic', function (req, res) {
+    insertDynamic(req.body.time, req.body.title, req.body.contnet)
     console.log(req.body)
+    console.log(typeof req.body)
     res.end("got post")
 })
 
