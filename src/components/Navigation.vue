@@ -86,7 +86,6 @@ export default Vue.extend({
       logged: false,
       password: "",
       username: "",
-      //logged: true
     };
   },
   created: function () {
@@ -105,8 +104,8 @@ export default Vue.extend({
       //console.log(this.logged)
       this.logged = false;
       this.$cookies.set("logged", false);
-      console.log(this.username);
-      console.log(this.password);
+      this.username = ""
+      this.password = ""
     },
   },
 });
