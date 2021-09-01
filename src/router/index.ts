@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
-import CountDown from "../views/CountDown.vue"
-import Dynamics from "../views/Dynamics.vue"
 
 Vue.use(VueRouter)
 
@@ -36,6 +34,11 @@ const routes: Array<RouteConfig> = [
         path: '/publish',
         name: 'Publish',
         component: () => import('../views/PublishDynamic.vue')
+    },
+    {
+        path: '/birthday',
+        name: 'Birthday',
+        component: () => import('../views/Birthday.vue')
     }
 ]
 

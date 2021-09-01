@@ -5,24 +5,8 @@ import { Db, MongoClient } from 'mongodb'
 const client = new MongoClient("mongodb://127.0.0.1:27017")
 const connection = client.connect()
 
-/*
-console.log("before connecting")
-MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
-    if (err) {
-        throw err
-    }
-    console.log("connected")
-    client?.db("ning-blog").collection("dynamics").insertOne({ "time": , "c": 5 }, function (err, res) {
-        if (err) {
-            throw err
-        }
-        console.log("insert success")
-        client.close()
-    })
-})
-*/
-
 function insertDynamic(time: string, title: string, content: string) {
+    console.log("got param", time, title, content)
     connection.then(() => {
         client.db("ning-blog").collection("dynamics").insertOne({ "time": time, "title": title, "content": content }, function (err, res) {
             if (err) throw err
@@ -30,18 +14,47 @@ function insertDynamic(time: string, title: string, content: string) {
         })
     })
 }
+/*
+async function getDynamics() : object {
+    let dynamics: Document[] | undefined
+}
+*/
 
 const router = Router()
 router.post('/publish-dynamic', function (req, res) {
-    insertDynamic(req.body.time, req.body.title, req.body.contnet)
+    insertDynamic(req.body.time, req.body.title, req.body.content)
+    //getDynamics()
     console.log(req.body)
-    console.log(typeof req.body)
     res.end("got post")
 })
 
 router.get('/test', function (req, res) {
     console.log(req.headers)
     res.end("hello world")
+})
+
+router.get('/get-dynamics', function (req, res) {
+    connection.then(() => {
+        client.db("ning-blog").collection("dynamics").find().toArray(function (err, result) {
+            if (err) throw err
+            res.json(result)
+            //return result
+        })
+    })
+})
+
+router.post('/login', function (req, res) {
+    connection.then(() => {
+        client.db("ning-blog").collection("users").find({ "username": req.body.username, "password": req.body.password }).toArray(function (err, result) {
+            if (err) throw err
+            console.log(result?.length)
+            if (result?.length) {
+                res.end("success")
+            } else {
+                res.end("fail")
+            }
+        })
+    })
 })
 
 import express from 'express'

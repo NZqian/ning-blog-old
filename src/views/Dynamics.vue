@@ -16,7 +16,7 @@
           small
         >
           <v-row class="pt-1">
-            <v-col cols="3">
+            <v-col cols="5">
               <strong>{{ item.time }}</strong>
             </v-col>
             <v-col>
@@ -31,6 +31,7 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import Vue from "vue";
 import PicWithDate from "../components/PicWithDate.vue";
 
@@ -38,23 +39,16 @@ export default Vue.extend({
   name: "Dynamics",
   data() {
     return {
-      items: [
-        { color: "pink", time: "11", title: "New Icon", content: "Mobile App" },
-        {
-          color: "teal lighten-3",
-          time: "11",
-          title: "Design Stand Up",
-          content: "Hangouts",
-        },
-        { color: "pink", time: "11", title: "Lunch break", content: "" },
-        {
-          color: "teal lighten-3",
-          time: "11",
-          title: "Finish Home Screen",
-          content: "Web App",
-        },
-      ],
+      items: [],
     };
+  },
+  beforeMount: function() {
+      console.log("getting dynamics")
+      axios.get(Vue.prototype.serverAddr + "/api/get-dynamics").then(response=>{
+          console.log(response)
+          this.items = response.data
+      })
+      console.log("exiting before create")
   },
   components: {
     PicWithDate,

@@ -1,7 +1,12 @@
 <template>
   <div>
     <v-container>
-      <v-text-field label="标题" hide-details="auto" v-model="title">
+      <v-text-field
+        label="标题"
+        hide-details="auto"
+        v-model="title"
+        :rules="rules"
+      >
       </v-text-field>
       <v-textarea
         label="内容"
@@ -9,11 +14,13 @@
         v-model="content"
         counter="100"
         auto-grow
+        :rules="rules"
       >
       </v-textarea>
       <v-col class="text-center">
-        <v-btn @click="submit"> 提交 </v-btn>
+        <v-btn @click="submit" width="200px"> 提交 </v-btn>
       </v-col>
+      <!--
       <v-textarea
         label="内容"
         hide-details="auto"
@@ -22,38 +29,69 @@
         auto-grow
       >
       </v-textarea>
+      -->
     </v-container>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import axios from 'axios'
+import Vue from "vue";
+import axios from "axios";
 export default Vue.extend({
-    data: function() {
-        return {
-        title: "",
-        content: "",
-        response: "",
-        }
+  data: function () {
+    return {
+      title: "",
+      content: "",
+      response: "",
+      rules: [(value: string) => !!value || "Required."],
+    };
+  },
+  methods: {
+    submit: function () {
+      console.log(this.title);
+      console.log(this.content);
+      if (this.title == "" || this.content == "") {
+        return;
+      }
+      let date = new Date();
+      /*
+      let time =
+        date.getFullYear() +
+        "-" +
+        date.getMonth() +
+        "-" +
+        date.getDay() +
+        "T" +
+        date.getHours() +
+        ":" +
+        date.getMinutes() +
+        ":" +
+        date.getSeconds();
+        */
+      let time =
+        date.getFullYear() +
+        "-" +
+        date.getMonth() +
+        "-" +
+        date.getDay() +
+        "\n" +
+        date.getHours() +
+        ":" +
+        date.getMinutes();
+      axios
+        .post(Vue.prototype.serverAddr + "/api/publish-dynamic", {
+          time: time,
+          title: this.title,
+          content: this.content,
+        })
+        .then((response) => {
+          console.log(response);
+          this.response = JSON.stringify(response);
+        })
+        .then(() => {
+          this.$router.push("/dynamics");
+        });
     },
-    methods: {
-        submit: function() {
-            console.log(this.title)
-            console.log(this.content)
-            /*
-            axios.get("http://127.0.0.1:8888/api/test").then(response=>{
-                console.log(response)
-                this.response = JSON.stringify(response)
-            })
-            */
-            let date = new Date()
-            let time = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
-            axios.post("http://192.168.1.199:8888/api/publish-dynamic", {"time": time,"title": this.title, "content": this.content}).then(response=>{
-                console.log(response)
-                this.response = JSON.stringify(response)
-            })
-        }
-    }
-})
+  },
+});
 </script>

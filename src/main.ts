@@ -14,3 +14,9 @@ new Vue({
 
 Vue.use(VueCookies)
 
+Vue.prototype.userid = 0 //0: hq, 1: nzq
+Vue.prototype.serverAddr = "http://10.89.25.50:8888"
+/*
+import config from "@/components/Config.vue"
+Vue.prototype.config = config
+*/
