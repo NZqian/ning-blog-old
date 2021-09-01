@@ -21,7 +21,7 @@
     <v-navigation-drawer v-model="drawer" fixed>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img v-if="logged" src="../assets/avatar.jpg"></v-img>
+          <v-img v-if="logged" :src="avatar"></v-img>
           <v-icon v-else>{{ icon }}</v-icon>
         </v-list-item-avatar>
 
@@ -100,7 +100,7 @@ export default Vue.extend({
       password: "",
       username: "",
       icon: "mdi-account-question",
-      avatar: require("../assets/avatar.jpg"),
+      avatar: require("../assets/avatar_male.jpg"),
     };
   },
   created: function () {
@@ -139,6 +139,9 @@ export default Vue.extend({
             for (var i = 1; i < 3; i++) {
               this.items[i].show = true;
             }
+            if (this.username == "HQ") {
+                this.avatar = require("../assets/avatar_female.jpg") 
+            }
           }
         });
     },
@@ -148,6 +151,10 @@ export default Vue.extend({
       this.$cookies.set("logged", false);
       this.username = "";
       this.password = "";
+    for (var i = 1; i < 3; i++) {
+        this.items[i].show = false;
+    }
+        this.$router.push('/')
     },
   },
   computed: {
