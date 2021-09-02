@@ -71,9 +71,9 @@ export default Vue.extend({
       let time =
         date.getFullYear() +
         "-" +
-        date.getMonth() +
+        (date.getMonth() + 1) +
         "-" +
-        date.getDay() +
+        date.getDate() +
         "\n" +
         date.getHours() +
         ":" +

@@ -73,6 +73,6 @@ app.all('*', function (req, res, next) {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', router)
-app.listen(8888, function () {
+app.listen(443, function () {
     console.log("server running")
 })

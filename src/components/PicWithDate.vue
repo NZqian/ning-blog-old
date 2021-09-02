@@ -1,7 +1,7 @@
 <template>
   <v-img
     dark
-    src="https://cdn.vuetifyjs.com/images/cards/forest.jpg"
+    src="../assets/forest.jpg"
     gradient="to top, rgba(0,0,0,.44), rgba(0,0,0,.44)"
   >
     <v-container class="fill-height">
